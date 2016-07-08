@@ -14,6 +14,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+        loans.belongsTo(models.patrons, {foreignKey: 'patron_id'});
+        loans.belongsTo(models.books, {foreignKey: 'book_id'});
       }
     },
     timestamps: false  // I do NOT want timestamps here
