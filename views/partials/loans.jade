@@ -33,11 +33,11 @@ block content
       each loan in loans
         tr
           td
-            a(href='book_detail.html') 
+            a(href='/books/' + loan.book.id) 
               =loan.book.title
           |                 
           td
-            a(href='patron_detail.html')
+            a(href='/patrons/' + loan.patron.id)
               =loan.patron.first_name
               | 
               =loan.patron.last_name

@@ -33,8 +33,6 @@ router.get('/loans', function(req, res, next) {
       res.sendStatus(500);
     });
   }
-
-  // res.render('partials/all_loans', { title: 'Loans' });
 });
 
 module.exports = router;

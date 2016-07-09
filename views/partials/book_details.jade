@@ -30,12 +30,11 @@ block content
       tbody
         each loan in loans
           tr
-            td
-              a(href='book_detail.html') 
-                =book.title
+            //- having an anchor tab here is pointless!
+            td= book.title
             |                 
             td
-              a(href='patron_detail.html')
+              a(href='/patrons/' + loan.patron.id)
                 =loan.patron.first_name 
                 | 
                 =loan.patron.last_name
