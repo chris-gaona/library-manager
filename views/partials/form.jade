@@ -1,0 +1,28 @@
+include errors
+p
+  label(for='title') Title
+  if book
+    input#title(type='text' name="title" value=book.title)
+  else 
+    input#title(type='text' name="title")
+|         
+p
+  label(for='author') Author
+  if book
+    input#author(type='text' name="author" value=book.author)
+  else 
+    input#author(type='text' name="author")
+|         
+p
+  label(for='genre') Genre
+  if book
+    input#genre(type='text' name="genre" value=book.genre)
+  else 
+    input#genre(type='text' name="genre")
+|         
+p
+  label(for='first_published') First Published
+  if book
+    input#first_published(type='text' name="first_published" value=book.first_published)
+  else 
+    input#first_published(type='text' name="first_published")
