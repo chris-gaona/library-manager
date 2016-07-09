@@ -59,4 +59,37 @@ router.get('/loans/new', function (req, res, next) {
   });
 });
 
+function getDate (date) {
+  var today = new Date(date);
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+  var newDate;
+  if (dd < 10 && mm < 10) {
+    newDate = yyyy + '-0' + mm + '-0' + dd;
+  } else if (dd < 10) {
+    newDate = yyyy + '-' + mm + '-0' + dd;
+  } else if (mm < 10) {
+    newDate = yyyy + '-0' + mm + '-' + dd;
+  } else {
+    newDate = yyyy + '-' + mm + '-' + dd;
+  }
+  return newDate;
+}
+
+router.post('/loans/new', function (req, res, next) {
+  var loanObject = {};
+  loanObject.book_id = req.body.book_id;
+  loanObject.patron_id = req.body.patron_id;
+  loanObject.loaned_on = getDate(req.body.loaned_on);
+  loanObject.return_by = getDate(req.body.return_by);
+
+  loans.create(loanObject).then(function () {
+    res.redirect('/loans');
+  }).catch(function (err) {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
+
 module.exports = router;
