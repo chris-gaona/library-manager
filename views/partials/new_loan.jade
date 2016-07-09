@@ -4,6 +4,7 @@ block content
   h1 New Loan
   |     
   form(action="/loans/new", method="post")
+    include errors
     p
       label(for='book_id') Book
       select#book_id(name="book_id")

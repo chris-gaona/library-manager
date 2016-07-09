@@ -5,10 +5,30 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       primaryKey: true
     },
-    book_id: DataTypes.INTEGER,
-    patron_id: DataTypes.INTEGER,
-    loaned_on: DataTypes.DATEONLY,
-    return_by: DataTypes.DATEONLY,
+    book_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    patron_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    loaned_on: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        isDate: {
+          msg: "Loaned on date is required"
+        }
+      }
+    },
+    return_by: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        isDate: {
+          msg: "Return by date is required"
+        }
+      }
+    },
     returned_on: DataTypes.DATEONLY
   }, {
     classMethods: {
