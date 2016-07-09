@@ -11,12 +11,7 @@ router.get('/loans', function(req, res, next) {
   if (req.query.filter === 'overdue') {
     loans.findAll({ include: [{ model: books }, { model: patrons }], where: { return_by: { $lt: new Date() }, returned_on: null }
     }).then(function (overdueBooks) {
-      var booksArray = [];
-      var getBooks = JSON.parse(JSON.stringify(overdueBooks));
-      for (var i = 0; i < getBooks.length; i++) {
-        booksArray.push(getBooks[i].book);
-      }
-      res.render('partials/books', { books: booksArray, title: 'Overdue Books' });
+      res.render('partials/loans', { loans: overdueBooks, title: 'Overdue Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -24,12 +19,7 @@ router.get('/loans', function(req, res, next) {
   } else if (req.query.filter === 'checked_out') {
     loans.findAll({ include: [{ model: books }, { model: patrons }], where: { returned_on: null }
     }).then(function (checkedOutBooks) {
-      var booksArray = [];
-      var getBooks = JSON.parse(JSON.stringify(checkedOutBooks));
-      for (var i = 0; i < getBooks.length; i++) {
-        booksArray.push(getBooks[i].book);
-      }
-      res.render('partials/books', { books: booksArray, title: 'Checked Out Books' });
+      res.render('partials/loans', { loans: checkedOutBooks, title: 'Checked Out Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
