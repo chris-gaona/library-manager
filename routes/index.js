@@ -17,9 +17,4 @@ router.get('/patrons', function(req, res, next) {
   res.render('partials/all_patrons', { title: 'Patrons' });
 });
 
-router.get('/loans', function(req, res, next) {
-  res.render('partials/all_loans', { title: 'Loans' });
-});
-
-
 module.exports = router;
