@@ -9,41 +9,45 @@ block content
     p
       input(type="submit" value="Update")
   |     
-  h2 Loan History
-  |     
-  table
-    thead
-      tr
-        th Book
-        |                 
-        th Patron 
-        |                 
-        th Loaned on
-        |                 
-        th Return by 
-        |                 
-        th Returned on
-        |                 
-        th Action
-    |         
-    tbody
-      each loan in loans
+  if(loans.length) 
+    h2 Loan History
+    |     
+    table
+      thead
         tr
-          td
-            a(href='book_detail.html') 
-              =book.title
+          th Book
           |                 
-          td
-            a(href='patron_detail.html')
-              =loan.patron.first_name 
-              | 
-              =loan.patron.last_name
+          th Patron 
           |                 
-          td= loan.loaned_on
+          th Loaned on
           |                 
-          td= loan.return_by
+          th Return by 
           |                 
-          td= loan.returned_on
+          th Returned on
           |                 
-          td
-            a.button(href='return_book.html') Return Book
+          th Action
+      |     
+      tbody
+        each loan in loans
+          tr
+            td
+              a(href='book_detail.html') 
+                =book.title
+            |                 
+            td
+              a(href='patron_detail.html')
+                =loan.patron.first_name 
+                | 
+                =loan.patron.last_name
+            |                 
+            td= loan.loaned_on
+            |                 
+            td= loan.return_by
+            |                 
+            td= loan.returned_on
+            |                 
+            td
+              a.button(href='return_book.html') Return Book
+  else 
+    h2 Loan History 
+    span No History Yet  
