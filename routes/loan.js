@@ -7,6 +7,7 @@ var books = require('../models').books;
 var loans = require('../models').loans;
 var patrons = require('../models').patrons;
 
+/* GET all loans & filter by overdue & checked out. */
 router.get('/loans', function (req, res, next) {
   if (req.query.filter === 'overdue') {
     loans.findAll({ include: [{ model: books }, { model: patrons }], where: { return_by: { $lt: new Date() }, returned_on: null }
@@ -35,6 +36,7 @@ router.get('/loans', function (req, res, next) {
   }
 });
 
+/* Create new loan form. */
 router.get('/loans/new', function (req, res, next) {
   var today = new Date();
   var addAWeek = new Date();
@@ -60,7 +62,12 @@ router.get('/loans/new', function (req, res, next) {
 });
 
 function getDate (date) {
-  var today = new Date(date);
+  var today;
+  if (date) {
+    today = new Date(date);
+  } else {
+    today = new Date();
+  }
   var dd = today.getDate();
   var mm = today.getMonth()+1; //January is 0!
   var yyyy = today.getFullYear();
@@ -77,6 +84,7 @@ function getDate (date) {
   return newDate;
 }
 
+/* POST add new loan. */
 router.post('/loans/new', function (req, res, next) {
   var loanObject = {};
   loanObject.book_id = req.body.book_id;
@@ -118,6 +126,32 @@ router.post('/loans/new', function (req, res, next) {
       // throw error to be handled by final catch
       throw err;
     }
+  }).catch(function (err) {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
+
+/* Create return book form. */
+router.get('/loans/:id/return', function (req, res, next) {
+  loans.findById(req.params.id, { include: [{ model: books }, { model: patrons }]}).then(function (loan) {
+    console.log(JSON.parse(JSON.stringify(loan)));
+    res.render('partials/return_book', { loan: loan, today: getDate(), title: 'Patron: Return Book' });
+  }).catch(function (err) {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
+
+router.put('/loans/:id/return', function (req, res, next) {
+  loans.findById(req.params.id, {}).then(function (loan) {
+    if (loan) {
+      return loan.update({ returned_on: req.body.returned_on });
+    } else {
+      res.sendStatus(404);
+    }
+  }).then(function () {
+    res.redirect('/loans');
   }).catch(function (err) {
     console.log(err);
     res.sendStatus(500);

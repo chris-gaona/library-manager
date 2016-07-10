@@ -46,7 +46,8 @@ block content
             td= loan.returned_on
             |                 
             td
-              a.button(href='return_book.html') Return Book
+              if (loan.returned_on === null)
+                a.button(href='/loans/' + loan.id + '/return') Return Book
   else 
     h2 Loan History 
     span No History Yet  
