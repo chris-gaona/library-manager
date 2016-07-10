@@ -32,8 +32,11 @@ module.exports = function(sequelize, DataTypes) {
     returned_on: {
       type: DataTypes.DATEONLY,
       validate: {
-        isDate: {
+        notEmpty: {
           msg: "Returned on date is required"
+        },
+        isDate: {
+          msg: "You must use a valid date. ex: 2016-07-15"
         }
       }
     }

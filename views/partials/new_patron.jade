@@ -1,3 +1,10 @@
 extends ../layout
 
 block content
+  h1=title
+  |     
+  form(action="/patron/new", method="post")
+    include errors
+    include patron_form    
+    p
+      input(type='submit', value='Create New Patron')

@@ -1,0 +1,41 @@
+p
+  label(for='first_name') First Name
+  if patron
+    input#first_name(type='text' name="first_name" value=patron.first_name)
+  else
+    input#first_name(type='text' name="first_name")
+|         
+p
+  label(for='last_name') Last Name
+  if patron
+    input#last_name(type='text' name="last_name" value=patron.last_name)
+  else
+    input#last_name(type='text' name="last_name")
+|         
+p
+  label(for='address')  Address
+  if patron
+    input#address(type='text' name="address" value=patron.address)
+  else
+    input#address(type='text' name="address")
+|         
+p
+  label(for='email') Email
+  if patron
+    input#email(type='text' name="email" value=patron.email)
+  else
+    input#email(type='text' name="email")
+|         
+p
+  label(for='library_id') Library ID
+  if patron
+    input#library_id(type='text' name="library_id" value=patron.library_id)
+  else
+    input#library_id(type='text' name="library_id")
+|         
+p
+  label(for='zip_code') Zip Code
+  if patron
+    input#zip_code(type='text' name="zip_code" value=patron.zip_code)
+  else
+    input#zip_code(type='text' name="zip_code")
