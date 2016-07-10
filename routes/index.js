@@ -12,9 +12,4 @@ router.get('/', function(req, res, next) {
   res.render('partials/index', { title: 'Library Manager' });
 });
 
-
-router.get('/patrons', function(req, res, next) {
-  res.render('partials/all_patrons', { title: 'Patrons' });
-});
-
 module.exports = router;
