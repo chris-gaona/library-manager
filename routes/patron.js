@@ -17,8 +17,42 @@ router.get('/patrons', function(req, res, next) {
   });
 });
 
+// router.get('/patrons/:id', function(req, res, next) {
+//   patrons.findById(req.params.id, {
+//   }).then(function (patron) {
+//     res.render('partials/patron_details', { patron: patron, title: patron.first_name + ' ' + patron.last_name });
+//   }).catch(function (err) {
+//     console.log(err);
+//     res.sendStatus(500);
+//   });
+// });
+
+router.get('/patrons/:id', function(req, res, next) {
+  loans.findAll({ include: [{ model: books }, { model: patrons, where: { id: req.params.id } }]
+  }).then(function (results) {
+    if (results) {
+      var patronObject = {};
+      var loanArray = [];
+      var getLoans = JSON.parse(JSON.stringify(results));
+      patronObject = {
+        id: getLoans[0].patron.id,
+        first_name: getLoans[0].patron.first_name,
+        last_name: getLoans[0].patron.last_name,
+        address: getLoans[0].patron.address,
+        email: getLoans[0].patron.email,
+        library_id: getLoans[0].patron.library_id,
+        zip_code: getLoans[0].patron.zip_code
+      };
+      res.render('partials/patron_details', { patron: patronObject, results: results, title: getLoans[0].patron.first_name + ' ' + getLoans[0].patron.last_name });
+    }
+  }).catch(function (err) {
+    console.log(err);
+    res.sendStatus(500);
+  });
+});
+
 router.get('/patrons/new', function(req, res, next) {
-  res.render('partials/patrons_new', { title: 'Patrons' });
+  res.render('partials/new_patron', { title: 'Patrons' });
 });
 
 module.exports = router;
