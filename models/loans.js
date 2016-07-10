@@ -29,7 +29,14 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    returned_on: DataTypes.DATEONLY
+    returned_on: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        isDate: {
+          msg: "Returned on date is required"
+        }
+      }
+    }
   }, {
     classMethods: {
       associate: function(models) {

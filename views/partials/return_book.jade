@@ -26,6 +26,7 @@ block content
     =loan.return_by
   |     
   form(action="/loans/" + loan.id + "/return?_method=PUT", method="post")
+    include errors
     p
       label(for='returned_on') Returned on:
       input#returned_on(type='text', value=today name="returned_on")

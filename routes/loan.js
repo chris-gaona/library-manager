@@ -153,6 +153,19 @@ router.put('/loans/:id/return', function (req, res, next) {
   }).then(function () {
     res.redirect('/loans');
   }).catch(function (err) {
+    if (err.name === "SequelizeValidationError") {
+      loans.findById(req.params.id, { include: [{ model: books }, { model: patrons }]}).then(function (loan) {
+        console.log(JSON.parse(JSON.stringify(loan)));
+        res.render('partials/return_book', { loan: loan, today: getDate(), title: 'Patron: Return Book', errors: err.errors });
+      }).catch(function (err) {
+        console.log(err);
+        res.sendStatus(500);
+      });
+    } else {
+      // throw error to be handled by final catch
+      throw err;
+    }
+  }).catch(function (err) {
     console.log(err);
     res.sendStatus(500);
   });
