@@ -22,7 +22,6 @@ router.get('/patrons/:id', function(req, res, next) {
   }).then(function (patron) {
     loans.findAll({ include: [{ model: books, attributes: ["title"] }, { model: patrons, where: { id: req.params.id }, attributes: ["first_name", "last_name"] }]
     }).then(function (results) {
-      console.log(JSON.parse(JSON.stringify(results)));
       if (results) {
         res.render('partials/patron_details', { patron: patron, results: results, title: patron.first_name + ' ' + patron.last_name });
       }

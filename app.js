@@ -1,3 +1,7 @@
+// TODO: add unit tests for node.js files
+// TODO: style select inputs to match others
+// TODO: add pagination for the loans, books and patrons listing pages OR include search fields on the at least one of the books or patrons listing pages
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
