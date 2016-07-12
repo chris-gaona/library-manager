@@ -20,8 +20,7 @@ router.get('/books/page/:page', function(req, res, next) {
       for (var i = 0; i < getBooks.length; i++) {
         booksArray.push(getBooks[i].book);
       }
-      var pageCount = Math.ceil(overdueBooks.count / 10);
-      res.render('partials/books', { count: pageCount, books: booksArray, title: 'Overdue Books' });
+      res.render('partials/books', { count: overdueBooks.count, books: booksArray, title: 'Overdue Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -34,8 +33,7 @@ router.get('/books/page/:page', function(req, res, next) {
       for (var i = 0; i < getBooks.length; i++) {
         booksArray.push(getBooks[i].book);
       }
-      var pageCount = Math.ceil(checkedOutBooks.count / 10);
-      res.render('partials/books', { count: pageCount, books: booksArray, title: 'Checked Out Books' });
+      res.render('partials/books', { count: checkedOutBooks.count, books: booksArray, title: 'Checked Out Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -43,10 +41,7 @@ router.get('/books/page/:page', function(req, res, next) {
   } else {
     books.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit
     }).then(function (allBooks) {
-      console.log(JSON.stringify(allBooks.count));
-      console.log(JSON.stringify(allBooks.rows));
-      var pageCount = Math.ceil(allBooks.count / 10);
-      res.render('partials/books', { count: pageCount, books: allBooks.rows, title: 'Books' });
+      res.render('partials/books', { count: allBooks.count, books: allBooks.rows, title: 'Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -62,7 +57,7 @@ router.get('/books/new', function(req, res, next) {
 /* POST add new book. */
 router.post('/books/new', function (req, res, next) {
   books.create(req.body).then(function (book) {
-    res.redirect('/books');
+    res.redirect('/books/page/1');
   }).catch(function (err) {
     if (err.name === "SequelizeValidationError") {
       //render

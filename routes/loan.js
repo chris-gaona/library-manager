@@ -15,8 +15,7 @@ router.get('/loans/page/:page', function (req, res, next) {
   if (req.query.filter === 'overdue') {
     loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }], where: { return_by: { $lt: new Date() }, returned_on: null }
     }).then(function (overdueBooks) {
-      var pageCount = Math.ceil(overdueBooks.count / 10);
-      res.render('partials/loans', { count: pageCount, loans: overdueBooks.rows, title: 'Overdue Books' });
+      res.render('partials/loans', { count: overdueBooks.count, loans: overdueBooks.rows, title: 'Overdue Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -24,8 +23,7 @@ router.get('/loans/page/:page', function (req, res, next) {
   } else if (req.query.filter === 'checked_out') {
     loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }], where: { returned_on: null }
     }).then(function (checkedOutBooks) {
-      var pageCount = Math.ceil(checkedOutBooks.count / 10);
-      res.render('partials/loans', { count: pageCount, loans: checkedOutBooks.rows, title: 'Checked Out Books' });
+      res.render('partials/loans', { count: checkedOutBooks.count, loans: checkedOutBooks.rows, title: 'Checked Out Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -33,8 +31,7 @@ router.get('/loans/page/:page', function (req, res, next) {
   } else {
     loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }]
     }).then(function (allLoans) {
-      var pageCount = Math.ceil(allLoans.count / 10);
-      res.render('partials/loans', { count: pageCount, loans: allLoans.rows, title: 'Loans' });
+      res.render('partials/loans', { count: allLoans.count, loans: allLoans.rows, title: 'Loans' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -99,7 +96,7 @@ router.post('/loans/new', function (req, res, next) {
   loanObject.return_by = getDate(req.body.return_by);
 
   loans.create(loanObject).then(function () {
-    res.redirect('/loans');
+    res.redirect('/loans/page/1');
   }).catch(function (err) {
     if (err.name === "SequelizeValidationError") {
       var today = new Date();

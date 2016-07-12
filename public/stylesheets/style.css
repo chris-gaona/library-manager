@@ -97,6 +97,19 @@ input[type=text], select {
   color: red;
 }
 
-#display-none {
-  display: none;
+#page-button {
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-right: 2px;
+  border-radius: 2px;
+  background-color: #019875;
+  color: #fff;
+  outline: none;
+  border: none;
+}
+
+#total-items {
+  margin: 0;
+  margin-top: 30px;
 }

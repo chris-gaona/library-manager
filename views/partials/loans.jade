@@ -13,7 +13,9 @@ block content
     a(href='/loans/page/1?filter=overdue') Overdue
     |  | 
     a(href='/loans/page/1?filter=checked_out') Checked Out
-  |     
+  |   
+  p#total-items Total Items: 
+    span#page-count=count  
   table
     thead
       tr
@@ -51,5 +53,4 @@ block content
           td
             if (loan.returned_on === null)
               a.button(href='/loans/' + loan.id + '/return') Return Book
-  p
-    #display-none=count
+  p#pagination

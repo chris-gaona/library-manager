@@ -14,6 +14,8 @@ block content
     |  | 
     a(href='/books/page/1?filter=checked_out') Checked Out
   |     
+  p#total-items Total Items: 
+    span#page-count=count
   table
     thead
       tr
@@ -38,5 +40,4 @@ block content
           |                 
           td= book.first_published
           | 
-  p
-    #display-none=count
+  p#pagination

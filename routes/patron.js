@@ -13,8 +13,7 @@ router.get('/patrons/page/:page', function(req, res, next) {
 
   patrons.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, order: ['last_name']
   }).then(function (patrons) {
-    var pageCount = Math.ceil(patrons.count / 10);
-    res.render('partials/patrons', { count: pageCount, patrons: patrons.rows, title: 'Patrons' });
+    res.render('partials/patrons', { count: patrons.count, patrons: patrons.rows, title: 'Patrons' });
   }).catch(function (err) {
     console.log(err);
     res.sendStatus(500);
@@ -91,7 +90,7 @@ router.get('/patron/new', function(req, res, next) {
 /* POST add new patron. */
 router.post('/patron/new', function(req, res, next) {
   patrons.create(req.body).then(function (patron) {
-    res.redirect('/patrons');
+    res.redirect('/patrons/page/1');
   }).catch(function (err) {
     if (err.name === "SequelizeValidationError") {
       //render
