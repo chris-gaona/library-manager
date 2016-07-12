@@ -1,6 +1,7 @@
 // TODO: add unit tests for node.js files
 // TODO: style select inputs to match others
-// TODO: add pagination for the loans, books and patrons listing pages OR include search fields on the at least one of the books or patrons listing pages
+// TODO: include search fields on the at least one of the books or patrons listing pages
+// TODO: create an error for when same book is trying to be loaned that is already checked out
 
 var express = require('express');
 var path = require('path');
