@@ -8,37 +8,45 @@ var loans = require('../models').loans;
 var patrons = require('../models').patrons;
 
 /* GET all books & filter by overdue & checked out. */
-router.get('/books', function(req, res, next) {
+router.get('/books/page/:page', function(req, res, next) {
+  var pagingLimit = 10;
+  var page = req.params.page;
+
   if (req.query.filter === 'overdue') {
-    loans.findAll({ include: [{ model: books }], where: { return_by: { $lt: new Date() }, returned_on: null }
+    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }], where: { return_by: { $lt: new Date() }, returned_on: null }
     }).then(function (overdueBooks) {
       var booksArray = [];
-      var getBooks = JSON.parse(JSON.stringify(overdueBooks));
+      var getBooks = JSON.parse(JSON.stringify(overdueBooks.rows));
       for (var i = 0; i < getBooks.length; i++) {
         booksArray.push(getBooks[i].book);
       }
-      res.render('partials/books', { books: booksArray, title: 'Overdue Books' });
+      var pageCount = Math.ceil(overdueBooks.count / 10);
+      res.render('partials/books', { count: pageCount, books: booksArray, title: 'Overdue Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
     });
   } else if (req.query.filter === 'checked_out') {
-    loans.findAll({ include: [{ model: books }], where: { returned_on: null }
+    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }], where: { returned_on: null }
     }).then(function (checkedOutBooks) {
       var booksArray = [];
-      var getBooks = JSON.parse(JSON.stringify(checkedOutBooks));
+      var getBooks = JSON.parse(JSON.stringify(checkedOutBooks.rows));
       for (var i = 0; i < getBooks.length; i++) {
         booksArray.push(getBooks[i].book);
       }
-      res.render('partials/books', { books: booksArray, title: 'Checked Out Books' });
+      var pageCount = Math.ceil(checkedOutBooks.count / 10);
+      res.render('partials/books', { count: pageCount, books: booksArray, title: 'Checked Out Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
     });
   } else {
-    books.findAll({
+    books.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit
     }).then(function (allBooks) {
-      res.render('partials/books', { books: allBooks, title: 'Books' });
+      console.log(JSON.stringify(allBooks.count));
+      console.log(JSON.stringify(allBooks.rows));
+      var pageCount = Math.ceil(allBooks.count / 10);
+      res.render('partials/books', { count: pageCount, books: allBooks.rows, title: 'Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);

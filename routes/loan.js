@@ -8,27 +8,33 @@ var loans = require('../models').loans;
 var patrons = require('../models').patrons;
 
 /* GET all loans & filter by overdue & checked out. */
-router.get('/loans', function (req, res, next) {
+router.get('/loans/page/:page', function (req, res, next) {
+  var pagingLimit = 10;
+  var page = req.params.page;
+
   if (req.query.filter === 'overdue') {
-    loans.findAll({ include: [{ model: books }, { model: patrons }], where: { return_by: { $lt: new Date() }, returned_on: null }
+    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }], where: { return_by: { $lt: new Date() }, returned_on: null }
     }).then(function (overdueBooks) {
-      res.render('partials/loans', { loans: overdueBooks, title: 'Overdue Books' });
+      var pageCount = Math.ceil(overdueBooks.count / 10);
+      res.render('partials/loans', { count: pageCount, loans: overdueBooks.rows, title: 'Overdue Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
     });
   } else if (req.query.filter === 'checked_out') {
-    loans.findAll({ include: [{ model: books }, { model: patrons }], where: { returned_on: null }
+    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }], where: { returned_on: null }
     }).then(function (checkedOutBooks) {
-      res.render('partials/loans', { loans: checkedOutBooks, title: 'Checked Out Books' });
+      var pageCount = Math.ceil(checkedOutBooks.count / 10);
+      res.render('partials/loans', { count: pageCount, loans: checkedOutBooks.rows, title: 'Checked Out Books' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
     });
   } else {
-    loans.findAll({ include: [{ model: books }, { model: patrons }]
+    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }]
     }).then(function (allLoans) {
-      res.render('partials/loans', { loans: allLoans, title: 'Loans' });
+      var pageCount = Math.ceil(allLoans.count / 10);
+      res.render('partials/loans', { count: pageCount, loans: allLoans.rows, title: 'Loans' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
