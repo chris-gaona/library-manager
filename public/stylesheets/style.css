@@ -78,6 +78,7 @@ td {
   padding: 5px 20px 5px 10px;
 }
 label {
+  position: relative;
   font-weight: bold;
   min-width: 130px;
   display: inline-block;
@@ -112,4 +113,53 @@ input[type=text], select {
 #total-items {
   margin: 0;
   margin-top: 30px;
+}
+
+select {
+  position: relative;
+  z-index: 10;
+  padding: 10px;
+  padding-right: 30px;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 2px;
+  border-color: #E7E7E7;
+  background-color: transparent;
+  box-shadow: inset 1px 1px 1px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select-container {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+span.fa.fa-chevron-down.first {
+  position: absolute;
+  left: 310px;
+  top: 33px;
+}
+
+@media (min-width: 582px) {
+  span.fa.fa-chevron-down.first {
+    left: 440px;
+    top: 3px;
+  }
+}
+
+span.fa.fa-chevron-down.second {
+  position: absolute;
+  left: 155px;
+  top: 33px;
+}
+
+@media (min-width: 426px) {
+  span.fa.fa-chevron-down.second {
+    left: 285px;
+    top: 3px;
+  }
 }
