@@ -1,6 +1,5 @@
 $(function () {
   var pageCount = $('#display-none').text();
-  console.log(pageCount);
 
   var pathname = window.location.pathname;
 
@@ -17,7 +16,7 @@ $(function () {
       } else if (pathname.split('/')[1] === 'loans') {
         $('#display-none').before('<a href="/loans/page/' + newCount + '"><button id="page-button">' + newCount + '</button></a>');
       } else if (pathname.split('/')[1] === 'patrons') {
-
+        $('#display-none').before('<a href="/patrons/page/' + newCount + '"><button id="page-button">' + newCount + '</button></a>');
       }
     }
   }
