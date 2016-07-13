@@ -3,18 +3,11 @@
 var express = require('express');
 var router = express.Router();
 
-var books = require('../models').books;
-var loans = require('../models').loans;
-var patrons = require('../models').patrons;
-
-var books_main = require('../utils/books/main.js');
-var books_new = require('../utils/books/new.js');
-var books_details = require('../utils/books/details.js');
-var books_update = require('../utils/books/update.js');
+var books_main = require('../utils/books');
 
 /* GET all books & filter by overdue & checked out. */
 router.get('/books/page/:page', function(req, res, next) {
-  books_main(req, res, next);
+  books_main.main(req, res, next);
 });
 
 /* Create new book form. */
@@ -24,17 +17,17 @@ router.get('/books/new', function(req, res, next) {
 
 /* POST add new book. */
 router.post('/books/new', function (req, res, next) {
-  books_new(req, res, next);
+  books_main.new(req, res, next);
 });
 
 /* GET inidividual book. */
 router.get('/books/:id', function(req, res, next) {
-  books_details(req, res, next);
+  books_main.details(req, res, next);
 });
 
 /* PUT update book. */
 router.put('/books/:id', function (req, res, next) {
-  books_update(req, res, next);
+  books_main.update(req, res, next);
 });
 
 module.exports = router;
