@@ -7,36 +7,11 @@ var books = require('../models').books;
 var loans = require('../models').loans;
 var patrons = require('../models').patrons;
 
+var loans_main = require('../utils/loans/main.js');
+
 /* GET all loans & filter by overdue & checked out. */
 router.get('/loans/page/:page', function (req, res, next) {
-  var pagingLimit = 10;
-  var page = req.params.page;
-
-  if (req.query.filter === 'overdue') {
-    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }], where: { return_by: { $lt: new Date() }, returned_on: null }
-    }).then(function (overdueBooks) {
-      res.render('partials/loans', { count: overdueBooks.count, loans: overdueBooks.rows, title: 'Overdue Books' });
-    }).catch(function (err) {
-      console.log(err);
-      res.sendStatus(500);
-    });
-  } else if (req.query.filter === 'checked_out') {
-    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }], where: { returned_on: null }
-    }).then(function (checkedOutBooks) {
-      res.render('partials/loans', { count: checkedOutBooks.count, loans: checkedOutBooks.rows, title: 'Checked Out Books' });
-    }).catch(function (err) {
-      console.log(err);
-      res.sendStatus(500);
-    });
-  } else {
-    loans.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit, include: [{ model: books }, { model: patrons }]
-    }).then(function (allLoans) {
-      res.render('partials/loans', { count: allLoans.count, loans: allLoans.rows, title: 'Loans' });
-    }).catch(function (err) {
-      console.log(err);
-      res.sendStatus(500);
-    });
-  }
+  loans_main(req, res, next);
 });
 
 /* Create new loan form. */
