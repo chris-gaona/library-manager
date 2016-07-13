@@ -1,7 +1,6 @@
 // TODO: add unit tests for node.js files
-// TODO: style select inputs to match others
-// TODO: include search fields on the at least one of the books or patrons listing pages
-// TODO: create an error for when same book is trying to be loaned that is already checked out
+// TODO: include search fields on at least one of the books or patrons listing pages
+// TODO: add dropdown jquery calendar to pick date on new loan page
 
 var express = require('express');
 var path = require('path');

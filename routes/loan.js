@@ -53,7 +53,7 @@ router.get('/loans/new', function (req, res, next) {
       attributes: ['id', 'first_name', 'last_name'],
       order: 'last_name'
     }).then(function (patrons) {
-      res.render('partials/new_loan', { books: books, patrons: patrons, today: today, due: addAWeek, title: 'New Loan' });
+      res.render('partials/new_loan', { books: books, patrons: patrons, today: getDate(), due: getDate(addAWeek), title: 'New Loan' });
     }).catch(function (err) {
       console.log(err);
       res.sendStatus(500);
@@ -92,8 +92,8 @@ router.post('/loans/new', function (req, res, next) {
   var loanObject = {};
   loanObject.book_id = req.body.book_id;
   loanObject.patron_id = req.body.patron_id;
-  loanObject.loaned_on = getDate(req.body.loaned_on);
-  loanObject.return_by = getDate(req.body.return_by);
+  loanObject.loaned_on = req.body.loaned_on;
+  loanObject.return_by = req.body.return_by;
 
   loans.create(loanObject).then(function () {
     res.redirect('/loans/page/1');
@@ -113,8 +113,8 @@ router.post('/loans/new', function (req, res, next) {
           res.render('partials/new_loan', {
             books: books,
             patrons: patrons,
-            today: today,
-            due: addAWeek,
+            today: getDate(),
+            due: getDate(addAWeek),
             errors: err.errors,
             title: 'New Loan' });
         }).catch(function (err) {
@@ -154,7 +154,7 @@ router.put('/loans/:id/return', function (req, res, next) {
       res.sendStatus(404);
     }
   }).then(function () {
-    res.redirect('/loans');
+    res.redirect('/loans/page/1');
   }).catch(function (err) {
     if (err.name === "SequelizeValidationError") {
       loans.findById(req.params.id, { include: [{ model: books }, { model: patrons }]}).then(function (loan) {

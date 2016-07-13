@@ -110,6 +110,10 @@ input[type=text], select {
   border: none;
 }
 
+#page-button:hover {
+  background-color: #01b189;
+}
+
 #total-items {
   margin: 0;
   margin-top: 30px;
@@ -119,6 +123,7 @@ select {
   position: relative;
   z-index: 10;
   padding: 10px;
+  cursor: pointer;
   padding-right: 30px;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   font-size: 14px;
