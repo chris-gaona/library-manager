@@ -1,6 +1,6 @@
-// TODO: add unit tests for node.js files
-// TODO: include search fields on at least one of the books or patrons listing pages
 // TODO: add dropdown jquery calendar to pick date on new loan page
+// TODO: add eslint
+// TODO: make sure error routes show well
 
 var express = require('express');
 var path = require('path');
