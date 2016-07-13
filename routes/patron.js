@@ -7,6 +7,7 @@ var books = require('../models').books;
 var loans = require('../models').loans;
 var patrons = require('../models').patrons;
 
+/* GET all patrons */
 router.get('/patrons/page/:page', function(req, res, next) {
   var pagingLimit = 10;
   var page = req.params.page;
