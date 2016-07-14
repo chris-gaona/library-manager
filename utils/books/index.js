@@ -1,10 +1,10 @@
 'use strict';
 
 // main list all books functions
-exports.main = require("./main.js");
+exports.main = require('./main.js');
 // details functions
-exports.details = require("./details.js");
+exports.details = require('./details.js');
 // new functions
-exports.new = require("./new.js");
+exports.new = require('./new.js');
 // update functions
-exports.update = require("./update.js");
+exports.update = require('./update.js');

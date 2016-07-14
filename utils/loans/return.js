@@ -16,8 +16,8 @@ module.exports = function (req, res, next) {
   }).then(function () {
     res.redirect('/loans/page/1');
   }).catch(function (err) {
-    if (err.name === "SequelizeValidationError") {
-      loans.findById(req.params.id, { include: [{ model: books }, { model: patrons }]}).then(function (loan) {
+    if (err.name === 'SequelizeValidationError') {
+      loans.findById(req.params.id, { include: [{ model: books }, { model: patrons }] }).then(function (loan) {
         res.render('partials/return_book', { loan: loan, today: getDate(), title: 'Patron: Return Book', errors: err.errors });
       }).catch(function (err) {
         console.log(err);

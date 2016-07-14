@@ -1,14 +1,12 @@
 'use strict';
 
 var books = require('../../models').books;
-var loans = require('../../models').loans;
-var patrons = require('../../models').patrons;
 
 module.exports = function (req, res, next) {
   // creates needed variables for limiting results for pagination
   var pagingLimit = 10;
   var page = req.params.page;
-  
+
   // use sequlize to return all books
   // limit results for pagination to 10 per page
   books.findAndCountAll({ limit: pagingLimit, offset: (page - 1) * pagingLimit

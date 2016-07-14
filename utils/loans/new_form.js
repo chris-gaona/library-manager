@@ -1,7 +1,6 @@
 'use strict';
 
 var books = require('../../models').books;
-var loans = require('../../models').loans;
 var patrons = require('../../models').patrons;
 
 var getDate = require('./get_date.js');
@@ -14,7 +13,7 @@ module.exports = function (req, res, next) {
   books.findAll({
     attributes: ['id', 'title'],
     order: 'title'
-}).then(function (books) {
+  }).then(function (books) {
     patrons.findAll({
       attributes: ['id', 'first_name', 'last_name'],
       order: 'last_name'

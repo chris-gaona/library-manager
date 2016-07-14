@@ -2,7 +2,6 @@
 
 var books = require('../../models').books;
 var loans = require('../../models').loans;
-var patrons = require('../../models').patrons;
 
 module.exports = function (req, res, next) {
   // creates needed variables for limiting results for pagination

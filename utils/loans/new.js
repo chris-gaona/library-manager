@@ -16,14 +16,14 @@ module.exports = function (req, res, next) {
   loans.create(loanObject).then(function () {
     res.redirect('/loans/page/1');
   }).catch(function (err) {
-    if (err.name === "SequelizeValidationError") {
+    if (err.name === 'SequelizeValidationError') {
       var today = new Date();
       var addAWeek = new Date();
       addAWeek.setDate(today.getDate() + 7);
       books.findAll({
         attributes: ['id', 'title'],
         order: 'title'
-    }).then(function (books) {
+      }).then(function (books) {
         patrons.findAll({
           attributes: ['id', 'first_name', 'last_name'],
           order: 'last_name'

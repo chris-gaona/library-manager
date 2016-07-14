@@ -12,10 +12,10 @@ module.exports = function (req, res, next) {
       res.sendStatus(404);
     }
   }).then(function (book) {
-    res.redirect("/books/" + book.id);
+    res.redirect('/books/' + book.id);
   }).catch(function (err) {
-    if (err.name === "SequelizeValidationError") {
-      books.findAll({ include: [{ model: loans, include: [{ model: patrons }] }], where: { id: req.params.id }}).then(function (book) {
+    if (err.name === 'SequelizeValidationError') {
+      books.findAll({ include: [{ model: loans, include: [{ model: patrons }] }], where: { id: req.params.id } }).then(function (book) {
         if (book) {
           var bookObject = {};
           var loanArray = [];

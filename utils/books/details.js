@@ -5,7 +5,7 @@ var loans = require('../../models').loans;
 var patrons = require('../../models').patrons;
 
 module.exports = function (req, res, next) {
-  books.findAll({ include: [{ model: loans, include: [{ model: patrons }] }], where: { id: req.params.id }}).then(function (book) {
+  books.findAll({ include: [{ model: loans, include: [{ model: patrons }] }], where: { id: req.params.id } }).then(function (book) {
     if (book) {
       var bookObject = {};
       var loanArray = [];

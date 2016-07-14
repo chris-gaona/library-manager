@@ -7,7 +7,7 @@ var patrons = require('../../models').patrons;
 module.exports = function (req, res, next) {
   patrons.findById(req.params.id, {
   }).then(function (patron) {
-    loans.findAll({ include: [{ model: books, attributes: ["id", "title"] }, { model: patrons, where: { id: req.params.id }, attributes: ["first_name", "last_name"] }]
+    loans.findAll({ include: [{ model: books, attributes: ['id', 'title'] }, { model: patrons, where: { id: req.params.id }, attributes: ['first_name', 'last_name'] }]
     }).then(function (results) {
       if (results) {
         console.log(JSON.stringify(results));

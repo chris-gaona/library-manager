@@ -6,11 +6,11 @@ module.exports = function (req, res, next) {
   patrons.create(req.body).then(function (patron) {
     res.redirect('/patrons/page/1');
   }).catch(function (err) {
-    if (err.name === "SequelizeValidationError") {
-      //render
-      res.render("partials/new_patron", {
+    if (err.name === 'SequelizeValidationError') {
+      // render
+      res.render('partials/new_patron', {
         patron: patrons.build(req.body),
-        title: "New Patron",
+        title: 'New Patron',
         errors: err.errors
       });
     } else {

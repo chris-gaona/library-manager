@@ -6,11 +6,11 @@ module.exports = function (req, res, next) {
   books.create(req.body).then(function (book) {
     res.redirect('/books/page/1');
   }).catch(function (err) {
-    if (err.name === "SequelizeValidationError") {
-      //render
-      res.render("partials/new_book", {
+    if (err.name === 'SequelizeValidationError') {
+      // render
+      res.render('partials/new_book', {
         book: books.build(req.body),
-        title: "New Book",
+        title: 'New Book',
         errors: err.errors
       });
     } else {
