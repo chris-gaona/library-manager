@@ -29,7 +29,7 @@ block content
     include errors
     p
       label(for='returned_on') Returned on:
-      input#returned_on(type='text', value=today name="returned_on")
+      input#returned_on.datepicker(type='text', value=today name="returned_on")
     |         
     p
       input(type='submit', value='Return Book')

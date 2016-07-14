@@ -1,4 +1,3 @@
-// TODO: add dropdown jquery calendar to pick date on new loan page
 // TODO: make sure error routes show well
 
 var express = require('express');
