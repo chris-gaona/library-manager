@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
   // pass data from successful query into checkedOutBooks
   }).then(function (checkedOutBooks) {
     // render the view & pass in data
-    res.render('partials/books', { count: checkedOutBooks.count, books: checkedOutBooks.rows, title: 'Checked Out Books' });
+    res.render('partials/books', { count: checkedOutBooks.count + 1, books: checkedOutBooks.rows, title: 'Checked Out Books' });
   // catch any errors
   }).catch(function (err) {
     console.log(err);

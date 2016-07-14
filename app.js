@@ -1,5 +1,3 @@
-// TODO: make sure error routes show well
-
 var express = require('express');
 var path = require('path');
 // var favicon = require('serve-favicon');
