@@ -1,5 +1,6 @@
 'use strict';
 
+// define needed variables
 var express = require('express');
 var router = express.Router();
 

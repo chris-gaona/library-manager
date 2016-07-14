@@ -1,8 +1,10 @@
 'use strict';
 
+// define needed variables
 var books = require('../../models').books;
 var loans = require('../../models').loans;
 
+// exports module
 module.exports = function (req, res, next) {
   // creates needed variables for limiting results for pagination
   var pagingLimit = 10;

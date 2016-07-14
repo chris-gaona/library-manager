@@ -1,7 +1,9 @@
 'use strict';
 
+// define needed variables
 var books = require('../../models').books;
 
+// exports module
 module.exports = function (req, res, next) {
   // creates needed variables for limiting results for pagination
   var pagingLimit = 10;

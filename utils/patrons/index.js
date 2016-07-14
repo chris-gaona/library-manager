@@ -1,10 +1,10 @@
 'use strict';
 
-// main list all loans functions
+// main list all patrons functions
 exports.main = require('./all_patrons.js');
-// main list all loans functions
+// details patrons functions
 exports.details = require('./details.js');
-// main list all loans functions
+// new patrons functions
 exports.new = require('./new.js');
-// main list all loans functions
+// update patrons functions
 exports.update = require('./update.js');
